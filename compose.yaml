@@ -13,6 +13,7 @@ services:
       - ./db:/db
       - ./log/gunicorn:/log/gunicorn
       - ./log/sqlite:/log/sqlite
+      - ./appenv:/flask-htmx/appenv
     environment:
       - SQLITE_DBFILE=/db/sqlite.db
       - SQLITE_LOGFILE=/log/sqlite/info.log

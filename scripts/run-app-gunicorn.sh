@@ -1,7 +1,10 @@
 #!/usr/bin/sh
 
-if [ $1 == "debug" ]
+echo 'Running run-app-gunicorn.sh'
+
+if [ "$1" = "debug" ]
 then
+    echo 'Running in debug mode'
     export SQLITE_DBFILE=/$(pwd)/db/sqlite.db
     export SQLITE_LOGFILE=log/sqlite/info.log
     export GUNICORN_ACCESS_LOGFILE=log/gunicorn/access.log
@@ -13,13 +16,16 @@ then
     mkdir -p log/gunicorn
 fi
 
-. appenv/bin/activate
+echo 'Activating virtual environment'
+. /flask-htmx/appenv/bin/activate
 
+echo 'Clearing previous log files (Gunicorn)'
 rm -f $GUNICORN_ACCESS_LOGFILE
 rm -f $GUNICORN_DEBUG_LOGFILE
 touch $GUNICORN_ACCESS_LOGFILE
 touch $GUNICORN_DEBUG_LOGFILE
 
+echo 'Running Gunicorn'
 gunicorn --workers $GUNICORN_WORKERS \
          --worker-connections $GUNICORN_WORKER_CONNECTIONS \
          --bind 0.0.0.0:$GUNICORN_PORT \
@@ -28,3 +34,5 @@ gunicorn --workers $GUNICORN_WORKERS \
          --error-logfile $GUNICORN_DEBUG_LOGFILE \
          --capture-output \
          'app:app'
+
+#echo $(ls -alR /flask-htmx/app)
