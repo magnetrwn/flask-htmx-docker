@@ -7,8 +7,3 @@ class Author(db.Model):
 
     def __repr__(self):
         return '<Author: {}>'.format(self.books)
-
-class Book(db.Model):
-    book_id = db.Column(db.Integer, primary_key=True)
-    author_id = db.Column(db.Integer, db.ForeignKey("author.author_id"))
-    title = db.Column(db.String)

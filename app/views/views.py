@@ -1,6 +1,7 @@
 from app import app, db
 from flask import render_template, request, jsonify
-from app.models import Author, Book
+from app.models.author import Author
+from app.models.book import Book
 
 @app.route("/", methods=["GET"])
 def home():
