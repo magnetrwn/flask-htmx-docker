@@ -9,10 +9,9 @@ services:
     volumes:
       - db:/db
     tmpfs:
-      - /log:rw,noatime,size=64m
+      - /log:rw,noatime
     environment:
-      # Container paths to tmpfs /log volume
+      - SQLITE_DBFILE="/db/sqlite.db"
       - SQLITE_LOGFILE="/log/sqlite.log"
       - GUNICORN_ACCESS_LOGFILE="/log/gunicorn-access.log"
       - GUNICORN_DEBUG_LOGFILE="/log/gunicorn-debug.log"
-
