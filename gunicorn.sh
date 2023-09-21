@@ -2,9 +2,11 @@
 
 source appenv/bin/activate
 
+mkdir -p db
+mkdir -p log
+
 rm -rf log/gunicorn
 rm -rf log/sqlite
-
 mkdir log/gunicorn
 mkdir log/sqlite
 
