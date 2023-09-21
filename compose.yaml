@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    image: flask-htmx
+    ports:
+      - "8080:8080"
+    tmpfs:
+      - /log:rw,noatime,size=64m
+    environment:
+      - SQLITE_LOGFILE="/log/sqlite.log"
+      - GUNICORN_ACCESS_LOGFILE="/log/gunicorn-access.log"
+      - GUNICORN_DEBUG_LOGFILE="/log/gunicorn-debug.log"
+    #depends_on:
+    #  - flask-htmx-db

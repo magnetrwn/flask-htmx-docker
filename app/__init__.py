@@ -5,6 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
+env_db_log_path = "SQLITE_LOGFILE"
+
 db_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../db/sqlite.db")
 db_log_path = os.path.join(
     os.path.dirname(os.path.realpath(__file__)), "../log/sqlite/info.log"
@@ -26,7 +28,7 @@ with app.app_context():
     db.create_all()
 
 logging.basicConfig(
-    filename=os.path.realpath(db_log_path),
+    filename=os.getenv(env_db_log_path , os.path.realpath(db_log_path)),
     format="[%(asctime)s] %(levelname)s %(name)s:\n%(message)s",
 )
 logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
