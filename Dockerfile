@@ -7,7 +7,9 @@ COPY app \
     requirements.txt \
     .
 
-RUN chmod +x scripts/*.sh
+RUN chmod +x scripts/at-docker-init.sh
+RUN chmod +x scripts/run-app-gunicorn.sh
+RUN chmod +x scripts/setup-python-env.sh
 
 EXPOSE 8080
 
