@@ -6,9 +6,9 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8080:80"
     expose:
-      - "8080"
+      - "80"
     volumes:
       - ./db:/db
       - ./log/gunicorn:/log/gunicorn
@@ -20,5 +20,5 @@ services:
       - GUNICORN_DEBUG_LOGFILE=/log/gunicorn/debug.log
       - GUNICORN_WORKERS=2
       - GUNICORN_WORKER_CONNECTIONS=300
-      - GUNICORN_PORT=8080
+      - GUNICORN_PORT=80
     restart: unless-stopped
