@@ -1,4 +1,4 @@
-from app import db
+from .. import db
 
 class Book(db.Model):
     book_id = db.Column(db.Integer, primary_key=True)
