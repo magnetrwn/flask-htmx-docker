@@ -1,3 +1,4 @@
 appenv/
 log/
+instance/
 **/__pycache__/
