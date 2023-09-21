@@ -1,5 +1,5 @@
-from .author import Author
-from .book import Book
+from app.models.author import Author
+from app.models.book import Book
 
 __all__ = [
     "Author",

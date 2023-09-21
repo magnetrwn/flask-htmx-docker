@@ -1,4 +1,4 @@
-from .. import db
+from app import db
 
 class Author(db.Model):
     author_id = db.Column(db.Integer, primary_key=True)
