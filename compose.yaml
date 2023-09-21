@@ -6,11 +6,13 @@ services:
     image: flask-htmx
     ports:
       - "8080:8080"
+    volumes:
+      - db:/db
     tmpfs:
       - /log:rw,noatime,size=64m
     environment:
+      # Container paths to tmpfs /log volume
       - SQLITE_LOGFILE="/log/sqlite.log"
       - GUNICORN_ACCESS_LOGFILE="/log/gunicorn-access.log"
       - GUNICORN_DEBUG_LOGFILE="/log/gunicorn-debug.log"
-    #depends_on:
-    #  - flask-htmx-db
+
