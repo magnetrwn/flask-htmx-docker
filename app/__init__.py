@@ -1,3 +1,4 @@
+import logging
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -5,6 +6,9 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 db_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../db/sqlite.db")
+db_log_path = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)), "../log/sqlite/info.log"
+)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
 app.config["SQLALCHEMY_ECHO"] = False
@@ -20,3 +24,9 @@ from app.models import *
 # Create the database tables only after the app is initialized
 with app.app_context():
     db.create_all()
+
+logging.basicConfig(
+    filename=os.path.realpath(db_log_path),
+    format="[%(asctime)s] %(levelname)s %(name)s:\n%(message)s",
+)
+logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)

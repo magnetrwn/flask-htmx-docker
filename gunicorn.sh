@@ -3,7 +3,11 @@
 source appenv/bin/activate
 
 rm -rf log/gunicorn
+rm -rf log/sqlite
+
 mkdir log/gunicorn
+mkdir log/sqlite
+
 touch log/gunicorn/access.log
 touch log/gunicorn/debug.log
 
