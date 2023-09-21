@@ -2,15 +2,13 @@ FROM python:3.11-slim-bookworm
 
 WORKDIR /flask-htmx
 
-COPY app \
-    scripts \
-    requirements.txt \
-    .
+COPY requirements.txt .
 
-RUN chmod +x scripts/at-docker-init.sh
-RUN chmod +x scripts/run-app-gunicorn.sh
-RUN chmod +x scripts/setup-python-env.sh
+RUN mkdir app
+COPY app/* app/
 
-EXPOSE 8080
+RUN mkdir scripts
+COPY scripts/* scripts/
+RUN chmod +x scripts/*.sh
 
 CMD ["scripts/at-docker-init.sh"]

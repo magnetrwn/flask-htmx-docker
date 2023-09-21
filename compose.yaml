@@ -2,16 +2,23 @@ version: "3"
 
 services:
   app:
-    build: .
-    image: flask-htmx
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    expose:
+      - "8080"
     volumes:
-      - db:/db
-    tmpfs:
-      - /log:rw,noatime
+      - ./db:/db
+      - ./log/gunicorn:/log/gunicorn
+      - ./log/sqlite:/log/sqlite
     environment:
-      - SQLITE_DBFILE="/db/sqlite.db"
-      - SQLITE_LOGFILE="/log/sqlite.log"
-      - GUNICORN_ACCESS_LOGFILE="/log/gunicorn-access.log"
-      - GUNICORN_DEBUG_LOGFILE="/log/gunicorn-debug.log"
+      - SQLITE_DBFILE=/db/sqlite.db
+      - SQLITE_LOGFILE=/log/sqlite/info.log
+      - GUNICORN_ACCESS_LOGFILE=/log/gunicorn/access.log
+      - GUNICORN_DEBUG_LOGFILE=/log/gunicorn/debug.log
+      - GUNICORN_WORKERS=2
+      - GUNICORN_WORKER_CONNECTIONS=300
+      - GUNICORN_PORT=8080
+    restart: unless-stopped
