@@ -1,3 +1,4 @@
 appenv/
+log/
 app/sqlite.db
 **/__pycache__/

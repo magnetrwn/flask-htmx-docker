@@ -1,5 +1,5 @@
-from app import app, db
 from flask import render_template, request, jsonify
+from app import app, db
 from app.models.author import Author
 from app.models.book import Book
 
