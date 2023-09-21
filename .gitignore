@@ -1,2 +1,3 @@
 appenv/
+app/sqlite.db
 **/__pycache__/
