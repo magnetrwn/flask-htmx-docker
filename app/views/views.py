@@ -3,10 +3,14 @@ from app import app, db
 from app.models.author import Author
 from app.models.book import Book
 
+
 @app.route("/", methods=["GET"])
 def home():
-    books = db.session.query(Book, Author).filter(Book.author_id == Author.author_id).all()
+    books = (
+        db.session.query(Book, Author).filter(Book.author_id == Author.author_id).all()
+    )
     return render_template("index.html", books=books)
+
 
 @app.route("/submit", methods=["POST"])
 def submit():
@@ -54,6 +58,7 @@ def submit():
     """
     return response
 
+
 @app.route("/delete/<int:id>", methods=["DELETE"])
 def delete_book(id):
     book = Book.query.get(id)
@@ -61,6 +66,7 @@ def delete_book(id):
     db.session.commit()
 
     return ""
+
 
 @app.route("/get-edit-form/<int:id>", methods=["GET"])
 def get_edit_form(id):
@@ -82,6 +88,7 @@ def get_edit_form(id):
     </tr>
     """
     return response
+
 
 @app.route("/get-book-row/<int:id>", methods=["GET"])
 def get_book_row(id):
@@ -108,9 +115,12 @@ def get_book_row(id):
     """
     return response
 
+
 @app.route("/update/<int:id>", methods=["PUT"])
 def update_book(id):
-    db.session.query(Book).filter(Book.book_id == id).update({"title": request.form["title"]})
+    db.session.query(Book).filter(Book.book_id == id).update(
+        {"title": request.form["title"]}
+    )
     db.session.commit()
 
     title = request.form["title"]

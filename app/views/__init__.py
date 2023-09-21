@@ -1,4 +1,11 @@
-from app.views.views import home, submit, delete_book, get_edit_form, get_book_row, update_book
+from app.views.views import (
+    home,
+    submit,
+    delete_book,
+    get_edit_form,
+    get_book_row,
+    update_book,
+)
 
 __all__ = [
     "home",
@@ -6,5 +13,5 @@ __all__ = [
     "delete_book",
     "get_edit_form",
     "get_book_row",
-    "update_book"
+    "update_book",
 ]

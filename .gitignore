@@ -1,4 +1,4 @@
 appenv/
 log/
-app/sqlite.db
+db/sqlite.db
 **/__pycache__/
