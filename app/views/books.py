@@ -1,10 +1,13 @@
-from flask import render_template, request, jsonify
+from flask import Blueprint, render_template, request
 from app import app, db
 from app.models.author import Author
 from app.models.book import Book
 
+# The example also sent back HTMX, so it's not quite an API
+books_api = Blueprint("b", __name__)
 
-@app.route("/", methods=["GET"])
+
+@books_api.route("/", methods=["GET"])
 def home():
     books = (
         db.session.query(Book, Author).filter(Book.author_id == Author.author_id).all()
@@ -12,7 +15,7 @@ def home():
     return render_template("index.html", books=books)
 
 
-@app.route("/submit", methods=["POST"])
+@books_api.route("/submit", methods=["POST"])
 def submit():
     global_book_object = Book()
 
@@ -59,7 +62,7 @@ def submit():
     return response
 
 
-@app.route("/delete/<int:id>", methods=["DELETE"])
+@books_api.route("/delete/<int:id>", methods=["DELETE"])
 def delete_book(id):
     book = Book.query.get(id)
     db.session.delete(book)
@@ -68,7 +71,7 @@ def delete_book(id):
     return ""
 
 
-@app.route("/get-edit-form/<int:id>", methods=["GET"])
+@books_api.route("/get-edit-form/<int:id>", methods=["GET"])
 def get_edit_form(id):
     book = Book.query.get(id)
     author = Author.query.get(book.author_id)
@@ -90,7 +93,7 @@ def get_edit_form(id):
     return response
 
 
-@app.route("/get-book-row/<int:id>", methods=["GET"])
+@books_api.route("/get-book-row/<int:id>", methods=["GET"])
 def get_book_row(id):
     book = Book.query.get(id)
     author = Author.query.get(book.author_id)
@@ -116,7 +119,7 @@ def get_book_row(id):
     return response
 
 
-@app.route("/update/<int:id>", methods=["PUT"])
+@books_api.route("/update/<int:id>", methods=["PUT"])
 def update_book(id):
     db.session.query(Book).filter(Book.book_id == id).update(
         {"title": request.form["title"]}

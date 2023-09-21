@@ -1,13 +1,17 @@
 #!/usr/bin/sh
 
-# Debug only, local run
-export SQLITE_DBFILE=/$(pwd)/db/sqlite.db
-export SQLITE_LOGFILE=log/sqlite/info.log
-export GUNICORN_ACCESS_LOGFILE=log/gunicorn/access.log
-export GUNICORN_DEBUG_LOGFILE=log/gunicorn/debug.log
-export GUNICORN_WORKERS=2
-export GUNICORN_WORKER_CONNECTIONS=300
-export GUNICORN_PORT=8080
+if [ $1 == "debug" ]
+then
+    export SQLITE_DBFILE=/$(pwd)/db/sqlite.db
+    export SQLITE_LOGFILE=log/sqlite/info.log
+    export GUNICORN_ACCESS_LOGFILE=log/gunicorn/access.log
+    export GUNICORN_DEBUG_LOGFILE=log/gunicorn/debug.log
+    export GUNICORN_WORKERS=2
+    export GUNICORN_WORKER_CONNECTIONS=300
+    export GUNICORN_PORT=8080
+    mkdir -p log/sqlite
+    mkdir -p log/gunicorn
+fi
 
 . appenv/bin/activate
 
