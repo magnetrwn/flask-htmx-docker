@@ -10,7 +10,7 @@ app = Flask(__name__)
 env_db_path = os.getenv("SQLITE_DBFILE")
 env_db_log_path = os.getenv("SQLITE_LOGFILE")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite://{env_db_path}"
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{env_db_path}"
 app.config["SQLALCHEMY_ECHO"] = False
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 

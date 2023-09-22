@@ -2,24 +2,20 @@ version: "3"
 
 services:
   app:
+    image: python:3.11-slim-bookworm
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "8080:80"
-    expose:
-      - "80"
     volumes:
-      - ./db:/db
-      - ./log/gunicorn:/log/gunicorn
-      - ./log/sqlite:/log/sqlite
+      - ./app:/flask-htmx/app
+      - ./db:/flask-htmx/db
+      - ./log/gunicorn:/flask-htmx/log/gunicorn
+      - ./log/sqlite:/flask-htmx/log/sqlite
       - ./appenv:/flask-htmx/appenv
-    environment:
-      - SQLITE_DBFILE=/db/sqlite.db
-      - SQLITE_LOGFILE=/log/sqlite/info.log
-      - GUNICORN_ACCESS_LOGFILE=/log/gunicorn/access.log
-      - GUNICORN_DEBUG_LOGFILE=/log/gunicorn/debug.log
-      - GUNICORN_WORKERS=2
-      - GUNICORN_WORKER_CONNECTIONS=300
-      - GUNICORN_PORT=80
-    restart: unless-stopped
+      - ./scripts:/flask-htmx/scripts
+    env_file:
+      - ./.env
+    restart: on-failure:5
+    command: ["/flask-htmx/scripts/at-docker-init.sh"]

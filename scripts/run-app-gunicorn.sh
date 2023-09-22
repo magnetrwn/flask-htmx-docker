@@ -34,5 +34,3 @@ gunicorn --workers $GUNICORN_WORKERS \
          --error-logfile $GUNICORN_DEBUG_LOGFILE \
          --capture-output \
          'app:app'
-
-#echo $(ls -alR /flask-htmx/app)

@@ -4,11 +4,5 @@ WORKDIR /flask-htmx
 
 COPY requirements.txt .
 
-RUN mkdir app
-COPY app/* app/
-
-RUN mkdir scripts
-COPY scripts/* scripts/
-RUN chmod +x scripts/*.sh
-
-CMD ["scripts/at-docker-init.sh"]
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
