@@ -24,9 +24,5 @@ echo 'GUNICORN_DEBUG_LOGFILE: ' $GUNICORN_DEBUG_LOGFILE
 echo 'GUNICORN_WORKERS: ' $GUNICORN_WORKERS
 echo 'GUNICORN_WORKER_CONNECTIONS: ' $GUNICORN_WORKER_CONNECTIONS
 echo 'GUNICORN_PORT: ' $GUNICORN_PORT
-echo
-echo 'Listing project directory:'
-echo "$(ls -alR /flask-htmx/db)"
-echo
 
 /flask-htmx/scripts/run-app-gunicorn.sh
